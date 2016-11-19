@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Toolity - Hash</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css">
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+            input[readonly] {
+                cursor: text
+            }
+            body {
+                background: #f2f2f2;
+            }
+            .top-bar {
+                color: #f2f2f2;
+                background: #c0392b;
+            }
+            form {
+                margin-top: 1rem;
+            }
+            #app {
+                position: relative;
+                min-height: 100%;
+                padding-bottom: 2.5rem;
+            }
+            #footer {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #ddd;
+                height: 2.5rem;
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app" v-cloak>
+            <div class="top-bar">
+                <div class="top-bar-title">
+                    <strong>Hash</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-1 columns">&nbsp;</div>
+                <div class="small-12 medium-10 columns">
+                    <form>
+                    <label>
+                        Algorithm
+                        <select v-model="algorithm" v-on:change="algorithmSelected">
+                            <option v-for="algo in algorithms" v-bind:value="algo">{{algo.name}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        Input
+                        <textarea v-model="input"></textarea>
+                    </label>
+                    <label>
+                        Output
+                        <input type="text" v-model="output" readonly></input>
+                    </label>
+                    </form>
+                </div>
+                <div class="medium-1 columns">&nbsp;</div>
+            </div>
+            <div id="footer">
+                &nbsp;
+            </div>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/vue/2.0.5/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/js-md5/0.4.1/md5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/js-sha1/0.3.0/sha1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/js-sha256/0.3.2/sha256.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/js-sha512/0.2.2/sha512.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/js-sha3/0.5.5/sha3.min.js"></script>
+    <script>
+        var algorithms = [
+            {name: "MD5", calc: md5},
+            {name: "SHA1", calc: sha1},
+            {name: "SHA256", calc: sha256},
+            {name: "SHA3-224", calc: sha3_224},
+            {name: "SHA3-256", calc: sha3_256},
+            {name: "SHA3-384", calc: sha3_384},
+            {name: "SHA3-512", calc: sha3_512},
+            {name: "SHA512", calc: sha512}
+        ];
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+               algorithms: algorithms,
+               algorithm: algorithms[0],
+               input: "Test"
+            },
+            computed: {
+                output: function() {
+                    return this.algorithm.calc(this.input);
+                }
+            },
+            methods: {                
+                algorithmSelected: function() {
+                    window.location.hash=this.algorithm.name;
+                }
+            }
+        })
+        
+        window.addEventListener("hashchange", function(event) {
+            var locationHash = (window.location.hash || "").replace("#","")
+            if (locationHash) {
+                algorithms.forEach(function(algo) {
+                    if (algo.name == locationHash) {
+                        app.algorithm = algo;
+                    }
+                })
+            }
+        });
+
+        if (!window.location.hash) {
+            window.location.hash = algorithms[0].name;
+        }
+        
+    </script>
+</html>
