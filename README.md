@@ -10,3 +10,5 @@ Useful online tools and utilities.
    - [SHA3-384](https://toolity.github.io/hash#SHA3-384)
    - [SHA3-512](https://toolity.github.io/hash#SHA3-512)
    - [SHA512](https://toolity.github.io/hash#SHA512)
+   
+- [Random Codes](https://toolity.github.io/random-codes) - generates unique random codes according to given pattern

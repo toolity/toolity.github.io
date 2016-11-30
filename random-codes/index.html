@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Toolity - Random Codes</title>
+        <link rel="stylesheet" href="./css/foundation.min.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" type="image/png" href="icons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="icons/favicon-16x16.png" sizes="16x16">
+        <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+            input[readonly] {
+                cursor: text
+            }
+            body {
+                background: #f2f2f2;
+            }
+            .top-bar {
+                color: #f2f2f2;
+                background: #c0392b;
+            }
+            form {
+                margin-top: 1rem;
+            }
+            #app {
+                position: relative;
+                min-height: 100%;
+                padding-bottom: 2.5rem;
+            }
+            #footer {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #ddd;
+                height: 2.5rem;
+                lineheight: 2.5rem;
+                text-align: left;
+            }
+            button.generate, button.generate:focus {
+                display: block;
+                margin: 0 auto;
+                width: 25%;
+                background-color: #777;
+            }
+            button.generate:hover {
+                background-color: #999;
+            }
+            .result {
+                border: 1px solid #cacaca;
+                background: #eaeaea;
+                padding: 1rem;
+                margin: 1rem 0;
+                text-align: center;
+            }
+            .result li {
+                display: inline-block;
+                    
+                padding: 0 1rem;
+                width: 10rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app" v-cloak>
+            <div class="top-bar">
+                <div class="top-bar-title">
+                    <strong>Random Codes</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-1 columns">&nbsp;</div>
+                <div class="small-12 medium-10 columns">
+                    <form>
+                    <label>
+                        Number of codes
+                        <input type="number" v-model="count"></input>
+                    </label>
+                    
+                    <label>
+                        Pattern
+                        <input type="text" v-model="pattern"></input>
+                    </label>
+                    
+                    <button type="button" class="generate button" v-on:click="generate">Generate</button>
+                    </form>
+                    <ul class="result" v-if="codes.length > 0">
+                        <li v-for="code in codes">{{code}}</li>
+                    </ul>
+                </div>
+                <div class="medium-1 columns">&nbsp;</div>
+            </div>
+            <div id="footer">
+                &nbsp;
+            </div>
+        </div>
+    </body>
+    <script src="./upup.min.js"></script>
+    <script>
+      if (window.UpUp) {
+          UpUp.start({
+            'content-url': './',
+            'assets': [
+              'css/foundation.min.css',
+              'js/vue.min.js',
+              'js/voucher_codes.js'
+            ]
+          });
+      }
+    </script>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/voucher_codes.js"></script>
+    <script>
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+               count: 100,
+               pattern: "#######",
+               codes: []
+            },
+            methods: {
+                generate: function() {
+                    this.codes = voucher_codes.generate({count: this.count, pattern: this.pattern});
+                }
+            }
+        })
+    </script>
+    
+    <script>
+        (function(){
+                var t,i,e,n=window,o=document,a=arguments,s="script",r=["config","track","identify","visit","push","call","trackForm","trackClick"],c=function(){var t,i=this;for(i._e=[],t=0;r.length>t;t++)(function(t){i[t]=function(){return i._e.push([t].concat(Array.prototype.slice.call(arguments,0))),i}})(r[t])};for(n._w=n._w||{},t=0;a.length>t;t++)n._w[a[t]]=n[a[t]]=n[a[t]]||new c;i=o.createElement(s),i.async=1,i.src="//static.woopra.com/js/w.js",e=o.getElementsByTagName(s)[0],e.parentNode.insertBefore(i,e)
+        })("woopra");
+
+        woopra.config({
+            domain: 'toolity.github.io'
+        });
+        woopra.track();
+    </script>
+</html>
