@@ -92,15 +92,19 @@
                     <form>
                     <label>
                         Number of codes
-                        <input type="number" v-model="count"></input>
+                        <input type="number" name="count" v-model="count" 
+                               v-validate data-vv-rules="required|numeric|between:1,10000" v-bind:class="{ 'is-invalid-input': errors.has('count')}"></input>
+                        <span v-if="errors.has('count')" class="form-error is-visible">{{ errors.first('count') }}</span>
                     </label>
                     
                     <label>
                         Pattern
-                        <input type="text" v-model="pattern"></input>
+                        <input type="text" name="pattern" v-model="pattern" 
+                               v-validate data-vv-rules="required|max:15" v-bind:class="{ 'is-invalid-input': errors.has('pattern')}"></input>
+                        <span v-if="errors.has('pattern')" class="form-error is-visible">{{ errors.first('pattern') }}</span>
                     </label>
                     
-                    <button type="button" class="button" v-on:click="generate">Generate</button>
+                    <button type="button" class="button" v-on:click="generate" v-bind:disabled="errors.any()">Generate</button>
                     </form>
                     <ul class="result" v-if="codes.length > 0">
                         <li v-for="code in codes">{{code}}</li>
@@ -124,15 +128,18 @@
             'assets': [
               'css/foundation.min.css',
               'js/vue.min.js',
+              'js/vee-validate.min.js',
               'js/voucher_codes.js'
             ]
           });
       }
     </script>
     <script src="./js/vue.min.js"></script>
+    <script src="./js/vee-validate.min.js"></script>
     <script src="./js/voucher_codes.js"></script>
     <script>
-
+        Vue.use(VeeValidate);
+    
         var app = new Vue({
             el: "#app",
             data: {
