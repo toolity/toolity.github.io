@@ -40,13 +40,17 @@
                 lineheight: 2.5rem;
                 text-align: left;
             }
-            button.generate, button.generate:focus {
+            .button {
                 display: block;
-                margin: 0 auto;
-                width: 25%;
+                margin: 0 auto 0.5rem;
+                min-width: 25%;
                 background-color: #777;
             }
-            button.generate:hover {
+            .button:focus {
+                background-color: #777;
+                outline-color: transparent;
+            }
+            .button:hover {
                 background-color: #999;
             }
             .result {
@@ -55,12 +59,23 @@
                 padding: 1rem;
                 margin: 1rem 0;
                 text-align: center;
+                max-height: 200px;
+                overflow-y: scroll;
             }
             .result li {
                 display: inline-block;
-                    
                 padding: 0 1rem;
                 width: 10rem;
+            }
+            .post-actions {
+                text-align: right;
+                margin: 1rem 0;
+            }
+            .post-actions a {
+                color: #555
+            }
+            .post-actions a:hover {
+                color: #777
             }
         </style>
     </head>
@@ -85,11 +100,14 @@
                         <input type="text" v-model="pattern"></input>
                     </label>
                     
-                    <button type="button" class="generate button" v-on:click="generate">Generate</button>
+                    <button type="button" class="button" v-on:click="generate">Generate</button>
                     </form>
                     <ul class="result" v-if="codes.length > 0">
                         <li v-for="code in codes">{{code}}</li>
                     </ul>
+                    <div class="post-actions">
+                        <a href="#" v-if="codes.length > 0" v-on:click="downloadCSV">Download CSV</a>
+                    </div>
                 </div>
                 <div class="medium-1 columns">&nbsp;</div>
             </div>
@@ -125,6 +143,15 @@
             methods: {
                 generate: function() {
                     this.codes = voucher_codes.generate({count: this.count, pattern: this.pattern});
+                },
+                downloadCSV: function() {
+                    var csvContent = "data:text/csv;charset=utf-8," + this.codes.join("\n")
+                    var encodedUri = encodeURI(csvContent);
+                    var link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", "codes.csv");
+                    document.body.appendChild(link);
+                    link.click(); 
                 }
             }
         })
