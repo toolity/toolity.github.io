@@ -154,6 +154,7 @@
                     while (this.codes.length < this.count) {
                         this.codes.push(cr.next());
                     }
+                    window.dispatchEvent(new CustomEvent("app.generate", {detail: {count: this.count, pattern: this.pattern}}));
                 },
                 downloadCSV: function() {
                     var csvContent = "data:text/csv;charset=utf-8," + this.codes.join("\n")
@@ -162,7 +163,8 @@
                     link.setAttribute("href", encodedUri);
                     link.setAttribute("download", "codes.csv");
                     document.body.appendChild(link);
-                    link.click(); 
+                    link.click();
+                    window.dispatchEvent(new CustomEvent("app.downloadCSV"));
                 }
             }
         })
@@ -174,8 +176,14 @@
         })("woopra");
 
         woopra.config({
-            domain: 'toolity.github.io'
+            domain: 'toolity.org'
         });
         woopra.track();
+        
+        ["app.generate", "app.downloadCSV"].forEach(function (eventName) {
+            window.addEventListener(eventName, function(event) {
+                woopra.track(eventName, event.detail);
+            });
+        })
     </script>
 </html>
