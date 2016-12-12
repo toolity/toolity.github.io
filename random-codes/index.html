@@ -129,14 +129,14 @@
               'css/foundation.min.css',
               'js/vue.min.js',
               'js/vee-validate.min.js',
-              'js/voucher_codes.js'
+              'js/coderain.js'
             ]
           });
       }
     </script>
     <script src="./js/vue.min.js"></script>
     <script src="./js/vee-validate.min.js"></script>
-    <script src="./js/voucher_codes.js"></script>
+    <script src="./js/coderain.js"></script>
     <script>
         Vue.use(VeeValidate);
     
@@ -144,12 +144,16 @@
             el: "#app",
             data: {
                count: 100,
-               pattern: "#######",
+               pattern: "########",
                codes: []
             },
             methods: {
                 generate: function() {
-                    this.codes = voucher_codes.generate({count: this.count, pattern: this.pattern});
+                    var cr = new CodeRain(app.pattern);
+                    this.codes = [];
+                    while (this.codes.length < this.count) {
+                        this.codes.push(cr.next());
+                    }
                 },
                 downloadCSV: function() {
                     var csvContent = "data:text/csv;charset=utf-8," + this.codes.join("\n")
