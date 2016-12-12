@@ -53,6 +53,28 @@
             .button:hover {
                 background-color: #999;
             }
+            
+            .help {
+                position: relative;
+                display: inline-block;
+            }
+            .tooltip {
+                background-color: #333;
+            }
+            .tooltip.right:before {
+                border-color: transparent #333 transparent transparent;
+            }
+            .help .tooltip {
+                visibility: hidden;
+                width: 16rem;
+                max-width: 16rem !important;
+                left: 2rem;
+                top: -3.625rem;
+            }
+            .help:hover .tooltip {
+                visibility: visible;
+            }
+
             .result {
                 border: 1px solid #cacaca;
                 background: #eaeaea;
@@ -98,7 +120,17 @@
                     </label>
                     
                     <label>
-                        Pattern
+                        Pattern 
+                        <div class="help">[?]
+                            <div class="tooltip right">
+                                <strong>A</strong> - uppercase letters<br>
+                                <strong>a</strong> - lowercase letters<br>
+                                <strong>9</strong> - digits<br>
+                                <strong>X</strong> - uppercase letters + digits<br>
+                                <strong>x</strong> - lowercase letters + digits<br>
+                                <strong>#</strong> - uppercase and lowercase letters + digits<br>
+                            </div>
+                        </div>
                         <input type="text" name="pattern" v-model="pattern" 
                                v-validate data-vv-rules="required|max:15" v-bind:class="{ 'is-invalid-input': errors.has('pattern')}"></input>
                         <span v-if="errors.has('pattern')" class="form-error is-visible">{{ errors.first('pattern') }}</span>
