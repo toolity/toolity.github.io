@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Toolity - Random Codes</title>
+        <meta name="description" content="Generate a list of unique random codes according to given pattern. Save results to CSV.">
+        <link rel="stylesheet" href="./css/foundation.min.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" type="image/png" href="icons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="icons/favicon-16x16.png" sizes="16x16">
+        <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+        <style>
+            html, body {
+                height: 100%;
+            }
+            body {
+                background: #f2f2f2;
+            }
+            .top-bar, .top-bar ul {
+                color: #f2f2f2;
+                background: #c0392b;
+            }
+            .top-bar h1 {
+                font-size: 1rem;
+                font-weight: bold;
+                margin: 0;
+            }
+            .top-bar a {
+                color: #f2f2f2;
+            }
+            .top-bar a:focus, .top-bar a:hover {
+                text-shadow: 0px 0px 2px #ddd;
+            }
+            #footer {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #ddd;
+                height: 2.5rem;
+                lineheight: 2.5rem;
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="top-bar">
+                <div class="top-bar-title">
+                    <h1><a href="./index.html">Random Codes</a></h1>
+                </div>
+                <div>
+                    <div class="top-bar-left"></div>
+                    <div class="top-bar-right">
+                        <ul class="menu">
+                            <li><a href="./about.html">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="hide-for-small-only medium-1 columns">&nbsp;</div>
+                <div class="small-12 medium-10 columns">
+                    
+                </div>
+                <div class="hide-for-small-only medium-1 columns">&nbsp;</div>
+            </div>
+            <div id="footer">
+                &nbsp;
+            </div>
+        </div>
+    </body>
+    <script>
+        (function(){
+                var t,i,e,n=window,o=document,a=arguments,s="script",r=["config","track","identify","visit","push","call","trackForm","trackClick"],c=function(){var t,i=this;for(i._e=[],t=0;r.length>t;t++)(function(t){i[t]=function(){return i._e.push([t].concat(Array.prototype.slice.call(arguments,0))),i}})(r[t])};for(n._w=n._w||{},t=0;a.length>t;t++)n._w[a[t]]=n[a[t]]=n[a[t]]||new c;i=o.createElement(s),i.async=1,i.src="//static.woopra.com/js/w.js",e=o.getElementsByTagName(s)[0],e.parentNode.insertBefore(i,e)
+        })("woopra");
+
+        woopra.config({
+            domain: 'toolity.org'
+        });
+        woopra.track();
+    </script>
+</html>
